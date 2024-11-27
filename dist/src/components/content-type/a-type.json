@@ -1,0 +1,21 @@
+{
+    "collectionName": "components_content_type_a_types",
+    "info": {
+        "displayName": "AType",
+        "icon": "alien",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "Title_Aqua": {
+            "type": "string",
+            "required": true
+        },
+        "Title_White": {
+            "type": "string"
+        },
+        "ProductContent": {
+            "type": "richtext"
+        }
+    }
+}

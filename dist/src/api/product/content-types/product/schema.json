@@ -1,0 +1,54 @@
+{
+    "kind": "collectionType",
+    "collectionName": "products",
+    "info": {
+        "singularName": "product",
+        "pluralName": "products",
+        "displayName": "Product",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {},
+    "attributes": {
+        "Product_Name": {
+            "type": "string",
+            "required": true,
+            "unique": true
+        },
+        "Product_Image": {
+            "type": "media",
+            "multiple": false,
+            "required": true,
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ]
+        },
+        "Product_type": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::product-type.product-type",
+            "inversedBy": "products"
+        },
+        "Carousel": {
+            "type": "boolean",
+            "default": true,
+            "required": true
+        },
+        "CustomStyles": {
+            "type": "richtext",
+            "default": ".image-container {   position: absolute;   top: 20vh;   right: 10vw; /* 左移圖片 */   width: 25vw;   height: auto;   z-index: 1; /* 確保圖片在文字層的下方 */ }   .text-container_BType {   position: absolute;   left: 2vw;   top:15vh; }   .text-overlay {     position: absolute;     top: 20vh;     left: 14vw;     z-index: 2;     width: 33vw;     padding: 30px;     color: $color-white; }   #textbox1{   position: absolute;   width:20vw;/* width:681px; */ }   #textbox2{   position: absolute;   left:25vw; /*textbox1寬度＋與textbox1間距*/   width:25vw;/* width:929px; */ }"
+        },
+        "Content": {
+            "type": "dynamiczone",
+            "components": [
+                "content-type.a-type",
+                "content-type.b-type"
+            ]
+        }
+    }
+}

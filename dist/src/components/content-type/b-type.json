@@ -1,0 +1,24 @@
+{
+    "collectionName": "components_content_type_b_types",
+    "info": {
+        "displayName": "BType",
+        "icon": "apps",
+        "description": ""
+    },
+    "options": {},
+    "attributes": {
+        "Title_Aqua": {
+            "type": "string",
+            "required": true
+        },
+        "Title_White": {
+            "type": "string"
+        },
+        "ProductContent1": {
+            "type": "richtext"
+        },
+        "ProductContent2": {
+            "type": "richtext"
+        }
+    }
+}

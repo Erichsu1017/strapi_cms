@@ -369,6 +369,98 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiProductTypeProductType extends Struct.CollectionTypeSchema {
+  collectionName: 'product_types';
+  info: {
+    description: '';
+    displayName: 'ProductType';
+    pluralName: 'product-types';
+    singularName: 'product-type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-type.product-type'
+    > &
+      Schema.Attribute.Private;
+    Order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1000;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0>;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    Type: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Struct.CollectionTypeSchema {
+  collectionName: 'products';
+  info: {
+    description: '';
+    displayName: 'Product';
+    pluralName: 'products';
+    singularName: 'product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Carousel: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    Content: Schema.Attribute.DynamicZone<
+      ['content-type.a-type', 'content-type.b-type']
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    CustomStyles: Schema.Attribute.RichText &
+      Schema.Attribute.DefaultTo<'.image-container {   position: absolute;   top: 20vh;   right: 10vw; /* \u5DE6\u79FB\u5716\u7247 */   width: 25vw;   height: auto;   z-index: 1; /* \u78BA\u4FDD\u5716\u7247\u5728\u6587\u5B57\u5C64\u7684\u4E0B\u65B9 */ }   .text-container_BType {   position: absolute;   left: 2vw;   top:15vh; }   .text-overlay {     position: absolute;     top: 20vh;     left: 14vw;     z-index: 2;     width: 33vw;     padding: 30px;     color: $color-white; }   #textbox1{   position: absolute;   width:20vw;/* width:681px; */ }   #textbox2{   position: absolute;   left:25vw; /*textbox1\u5BEC\u5EA6\uFF0B\u8207textbox1\u9593\u8DDD*/   width:25vw;/* width:929px; */ }'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product.product'
+    > &
+      Schema.Attribute.Private;
+    Product_Image: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    > &
+      Schema.Attribute.Required;
+    Product_Name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    Product_type: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::product-type.product-type'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -878,6 +970,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::product-type.product-type': ApiProductTypeProductType;
+      'api::product.product': ApiProductProduct;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
